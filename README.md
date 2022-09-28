@@ -106,7 +106,9 @@ Follow the instructions to run the application:
 1. Clone the repository.
 2. In the `Web.config` change the *connection string* so that the "Data Source" matches your SQL Server.
 3. Run [city-autocomplete](https://github.com/ioannis-thyris/city-autocomplete) service with Docker. (Please check the instructions in its repository on how to achieve this)
-4. Run the application.
+4. In the `CreateTrip` view replace the Google Maps API Key with your own (the existing key is now invalidated).
+5. In the `PlacesController` replace your OpenTripMaps API Key with your own.
+6. Run the application.
 
 ## Meet the team
 
