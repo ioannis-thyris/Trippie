@@ -11,6 +11,8 @@ Table of contents:
 5. [How to run](#how-to-run)
 6. [Meet the team](#meet-the-team)
 
+---
+
 ## Description
 
 This application was built as a final group project for the [Peoplecert Coding Bootcamp](https://peoplecerteducation.org/bootcamp/), according to the requirements for its successful completion.
