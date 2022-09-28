@@ -44,29 +44,6 @@ namespace GroupProject.Controllers
                          .Select(g => g.FirstOrDefault());
         }
 
-        [NonAction]
-        public Uri RadiusEndpoint(int radius, double lon, double lat, PlaceTypeEnum[] placeTypes, int rate = 2, int limit = 50, string format = "json")
-        {
-            var typesParsed = placeTypes.Select(value => Enum.GetName(typeof(PlaceTypeEnum), value))
-                                 .Select(name => char.ToLower(name[0]).ToString() + name.Substring(1))
-                                 .ToArray();
-
-            var kinds = String.Join(",", typesParsed);
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(baseUri)
-              .Append($"radius={radius}")
-              .Append($"&lon={lon}")
-              .Append($"&lat={lat}")
-              .Append($"&kinds={kinds}")
-              .Append($"&rate={rate}")
-              .Append($"&limit={limit}")
-              .Append($"&format={format}")
-              .Append($"&apikey={apiKey}");
-
-            return new Uri(sb.ToString());
-        }
 
         [NonAction]
         public async Task<List<PlaceDtoForOpenTripMap>> GetPlaces(Coordinates[] reducedPath, PlaceTypeEnum[] placeTypes, int radius)
@@ -109,6 +86,32 @@ namespace GroupProject.Controllers
 
             return placesConcur.ToList();
         }
+
+        [NonAction]
+        public Uri RadiusEndpoint(int radius, double lon, double lat, PlaceTypeEnum[] placeTypes, int rate = 2, int limit = 50, string format = "json")
+        {
+            var typesParsed = placeTypes.Select(value => Enum.GetName(typeof(PlaceTypeEnum), value))
+                                 .Select(name => char.ToLower(name[0]).ToString() + name.Substring(1))
+                                 .ToArray();
+
+            var kinds = String.Join(",", typesParsed);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(baseUri)
+              .Append($"radius={radius}")
+              .Append($"&lon={lon}")
+              .Append($"&lat={lat}")
+              .Append($"&kinds={kinds}")
+              .Append($"&rate={rate}")
+              .Append($"&limit={limit}")
+              .Append($"&format={format}")
+              .Append($"&apikey={apiKey}");
+
+            return new Uri(sb.ToString());
+        }
+
+
 
         [NonAction]
         public void SetDecimalSeparator()
