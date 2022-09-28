@@ -1,0 +1,72 @@
+﻿@using Trippie.Models.ViewModels
+@model Trippie.Models.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 d-flex justify-content-center">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal d-grid gap-2 p-2 ", role = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                <h2 class="display-4"><i class="bi bi-box-arrow-in-right"></i> @ViewBag.Title</h2>
+                <hr />
+                <div class="row-cols-auto">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger alert-danger fw-bold" })
+                </div>
+                
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label fw-bold" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg" , autofocus = "autofocus", placeholder = "user@mail.com*", required="required" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger alert-danger fw-bold" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label fw-bold" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg ", autofocus = "autofocus", placeholder = "password*", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger alert-danger fw-bold" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-primary form-control" />
+                    </div>
+                </div>
+                <p class="col-md-10 link-success">
+                    @Html.ActionLink("Create a new account", "Register")
+                </p>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+            }
+            <div class="col">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </section>
+       
+    </div>
+   
+    <!-- Footer -->
+    
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

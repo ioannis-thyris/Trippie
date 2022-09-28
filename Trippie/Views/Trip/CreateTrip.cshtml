@@ -1,0 +1,174 @@
+﻿@model Trippie.Models.ViewModels.CreateTripViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+<div class="d-flex justify-content-center">
+    <form class="needs-validation" id="input-from">
+        <div class="col-sm-5 mt-lg-1  py-sm-2 mx-lg-5 px-lg-3 mb-0">
+            <p class="lead text-secondary px-1"><i class="fas fa-exclamation-triangle text-warning"></i> <strong>Follow <span class="fw-bolder">the steps below</span> to create your trip</strong></p>
+        </div>
+        <div class="row mb-2 py-2">
+            <div>
+                <h6 class="display-6 text-center text-primary"><i class="bi bi-1-circle"></i></h6>
+                <p class="lead text-center text-primary fw-bold fs-3 py-2">Enter cities</p>
+            </div>
+            <div class="d-flex gap-5 justify-content-center">
+                <div class="form-group">
+                    <label class="col-form-label-lg fw-bold">Start</label>
+                    <input class="form-control form-control-lg  width300" type="search" name="start" placeholder="e.g. New York, USA" />
+                    <ul class="results list-group width300"></ul>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label-lg fw-bold">End</label>
+                    <input class="form-control form-control-lg width300" type="search" name="destination" placeholder="e.g. Los Angeles, USA" />
+                    <ul class="results list-group width300"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 py-4">
+            <div>
+                <h6 class="display-6 text-center text-primary"><i class="bi bi-2-circle"></i></h6>
+                <p class="lead text-center text-primary fw-bold fs-3 py-3">Choose place categories</p>
+            </div>
+            <div id="select-container">
+                @{
+
+                    foreach (var type in Model.PlaceTypes)
+                    {
+                        <div id="type-select">
+                            <label class="checkbox-inline fw-bold fs-6" for="@type.Name">
+                                @type.Name
+                            </label>
+                            @if (Model != null && Model.IsPremiumUser)
+                            {
+                                <input type="checkbox" name="@type.Name" value="@type.Id">
+                            }
+                            else
+                            {
+                                if (type.IsPremium ?? false)
+                                {
+                                    <input type="checkbox" name="@type.Name" value="@type.Id" disabled title="Premium user only">
+
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="@type.Name" value="@type.Id">
+                                }
+                            }
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-evenly mb-2 py-4">
+            <div class="form-group w-25 text-center">
+                <h6 class="display-6 text-center text-primary"><i class="bi bi-3-circle"></i></h6>
+                <label for="radius" class="lead text-center text-primary fw-bold fs-3 py-3"> Search radius (km)</label>
+
+                @if (Model != null && Model.IsPremiumUser)
+                {
+                    <input class="form-range mt-3" type="range" name="radius" value="7" min="1" max="20" step="1" />
+                }
+                else
+                {
+                    <input class="form-range mt-3" type="range" name="radius" value="7" min="1" max="20" step="1" disabled title="Premium user only" />
+                }
+                <p class="text-center fs-6"></p>
+            </div>
+
+            <div class="form-group w-25 text-center" title="Higher values will lead to higher loading times">
+                <h6 class="display-6 text-center text-primary"><i class="bi bi-4-circle"></i></h6>
+                <label for="points" class="lead text-center text-primary fw-bold fs-3 py-3">Search points along path</label>
+
+                @if (Model != null && Model.IsPremiumUser)
+                {
+                    <input class="form-range mt-3" type="range" name="points" value="8" min="5" max="25" step="1" />
+                }
+                else
+                {
+                    <input class="form-range mt-3" type="range" name="points" value="8" min="5" max="25" step="1" disabled title="Premium user only" />
+                }
+
+
+                <p class="text-center fs-6"></p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="d-flex justify-content-center col-4 offset-4">
+                <button type="button" class="btn btn-primary btn-lg " id="start-button"><i class="bi bi-search"></i> Find route</button>
+            </div>
+
+        </div>
+
+        <div class="map-container col-md-12 rounded-3 shadow-sm">
+            <div class="map-overlay">
+                <div class="spinner-border" role="status" hidden>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div id="map"></div>
+            <div id="added-places">
+                <div class="container-fluid">
+                    <p class="text-center text-primary border-bottom border-top border-2 border-primary" id="title"><i class="bi bi-geo"></i> Places</p>
+                    <hr />
+
+                    <ol class="list-group" id="places-list">
+                    </ol>
+
+                </div>
+
+                @{
+                    if (Model.IsRegistered)
+                    {
+
+                        <button type="submit" class="btn btn-success text-light" id="add-trip" disabled isRegistered="true">Create trip</button>
+
+                    }
+                    else
+                    {
+
+                        <button type="submit" class="btn btn-success  text-light" id="add-trip" disabled isRegistered="false">Get trip directions</button>
+
+                    }
+                }
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+@{
+    if (Model != null)
+    {
+
+        <script type="module" src="~/Scripts/trip/sliders.js"></script>
+    }
+
+}
+
+@section scripts {
+    <script type="module" src="~/Scripts/trip/autocomplete.js"></script>
+    <script type="module" src="~/Scripts/trip/types.js"></script>
+    <script type="module" src="~/Scripts/trip/directions.js"></script>
+    <script type="module" src="~/Scripts/trip/places.js"></script>
+    <script type="module" src="~/Scripts/trip/markers.js"></script>
+    <script type="module" src="~/Scripts/trip/map.js"></script>
+    <script src=@("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js")></script>*
+    <script async
+            defer
+            src="https://maps.googleapis.com/maps/api/js?v=weekly
+        &key=AIzaSyCWtBJDMm73chW1fM_kP8T9JpVeu6pt7DQ"></script>
+}
+
+

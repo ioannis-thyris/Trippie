@@ -1,0 +1,152 @@
+﻿body {
+    padding-top: 75px;
+    padding-bottom: 50px;
+    overflow-y: scroll;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+/*    padding-left: 15px;
+    padding-right: 15px;*/
+
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #777;
+    border-color: #fff
+}
+
+/* Set the map rules */
+#map {
+    height: 900px;
+    width: 70%;
+}
+
+#select-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#select-container div {
+    width: 100px;
+    text-align: center;
+}
+
+#type-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.map-container {
+    display: flex;
+    margin-top: 20px;
+    border: 1px solid rgb(235,235,235);
+    position: relative;
+}
+
+.width300 {
+    width: 300px;
+}
+
+.results {
+    max-width:100%;
+    position: absolute;
+    z-index: 5;
+}
+
+.results li:hover {
+    background-color: rgb(245,245,245);
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.7;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    font-size: 1.5rem;
+}
+
+#added-places {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#added-places button[type=submit] {
+    width: 100px;
+}
+
+#added-places li {
+    padding: 10px;
+}
+
+.place-item {
+    display: flex;
+}
+
+.delete-place{
+    border: 0;
+    background-color: inherit;
+}
+
+#places-list li:hover {
+    background-color: rgb(245,245,245);
+}
+
+.infoWindow {
+    width: 400px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-trip {
+
+    width: 300px;
+
+}
+
+#headerImg {
+/*    background: linear-gradient(90deg, rgba(229,230,223,0.5) 0%, rgba(229,230,223,0.5) 50%),url('images/back3-min.png');
+    background-size: cover;*/
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(229,230,223,0.5) 0%, rgba(229,230,223,0.5) 50%),url('images/back3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
