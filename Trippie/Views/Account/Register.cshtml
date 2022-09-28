@@ -1,0 +1,80 @@
+﻿@model Trippie.Models.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<div class="row mb-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <section>
+            <h2 class="display-4"><i class="bi bi-person-plus"></i> Sign up</h2>
+            <hr />
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal d-grid gap-1 p-2", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+        <div class="row mx-5 mb-md-2">
+            @Html.ValidationSummary("", new { @class = "text-danger alert-dismissible fade show", role = "alert" })
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.Username, new { @class = "col-md-4 control-label fw-bold" })
+                <div class="input-group">
+                    <div class="input-group-text"><span><i class="fas fa-user"></i></span></div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control form-control-lg", autofocus = "autofocus", placeholder = "Type your username here...", required = "required" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger fw-bold" })
+            </div>
+        </div>
+
+                <div class="row mx-5 mb-md-2">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label fw-bold" })
+                        <div class="input-group">
+                            <div class="input-group-text"><span><i class="far fa-envelope-open"></i> </span></div>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", autofocus = "autofocus", placeholder = "e.g user@mail.com", maxlength = "50", required = "required" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger fw-bold" })
+                    </div>
+                </div>
+
+                <div class="row mx-5 mb-md-2">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label fw-bold" })
+                        <div class="input-group">
+                            <div class="input-group-text"><span><i class="bi bi-key-fill"></i></span></div>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", autofocus = "autofocus", placeholder = "***********", required = "required", maxlength = "50" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger fw-bold" })
+                    </div>
+                </div>
+                <div class="row mx-5 mb-md-2">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label fw-bold" })
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <span><i class="bi bi-key"></i></span>
+                            </div>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-lg", autofocus = "autofocus", placeholder = "Repeat your password here...", required = "required", maxlength = "50" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger fw-bold" })
+                    </div>
+                </div>
+
+                <div class="form-group py-4 px-3 mx-5 ">
+                    <button type="submit" class="btn btn-success" value="Register">
+                        <i class="bi bi-arrow-return-right"></i>
+                        Submit
+                    </button>
+                    <div class="vr col-sm-1">
+                    </div>
+                    <button class="btn btn-secondary" type="reset" id="resetForm"><i class="bi bi-x-circle"></i> Reset</button>
+                </div>
+
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
