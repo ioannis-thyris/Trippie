@@ -1,0 +1,71 @@
+﻿@model Trippie.Models.ViewModels.ListViewModel<Trip>
+@using Trippie.Models.Entities
+
+
+<h1 class="display-2 mb-5">My trips</h1>
+
+
+@{
+    foreach (var trip in Model.Items)
+    {
+
+        <div class=" container border border-primary rounded mb-5">
+            <div class="row d-flex justify-content-evenly mt-3 mb-3">
+                <div class="col-5 d-flex flex-column justify-content-evenly">
+                    <div startLat="@trip.Start.Latitude" startLon="@trip.Start.Longitude" class="startDiv">
+                        <span class="fw-bold fs-4">Start: </span><span class="fs-5">@trip.Start.Name, @trip.Start.Country</span>
+                    </div>
+
+                    <div endLat="@trip.End.Latitude" endLon="@trip.End.Longitude" class="endDiv">
+                        <span class="fw-bold fs-4">Destination: </span><span class="fs-5">@trip.End.Name, @trip.End.Country</span>
+                    </div>
+
+                    <div>
+                        <span class="fw-bold fs-4">Creation date: </span><span class="fs-5">@trip.CreationDate</span>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <p class="text-center fs-4">Place Types</p>
+                    <ol class="ps-lg-5">
+                        @foreach (var type in trip.ChosenPlaceTypes)
+                        {
+                            <li>@type.Name</li>
+                        }
+                    </ol>
+                </div>
+
+                <div class="col-2 d-flex flex-column justify-content-evenly">
+                    <form action="@Url.Action("DeleteTrip", "Trip")" method="post">
+                        <input type="hidden" name="tripId" value="@trip.Id" />
+                        <button type="submit" class="btn btn-danger w-100">Delete</button>
+                    </form>
+
+                    <button type="button" class="btn btn-primary googleBtn">Open in Google Maps&#8482;</button>
+                </div>
+            </div>
+
+            <div class="row mb-3 d-flex justify-content-center">
+                <button class="btn btn-light fs-3 fw-bold w-25 border placeBtn">Places</button>
+            </div>
+            <div class="row" hidden>
+                @foreach (var place in trip.Places)
+                {
+                    <div class="col-4 placeDiv" lat="@place.Latitude" lon="@place.Longitude">
+                        <img src="@place.ImageUrl" alt="Alternate Text" class="w-100" />
+                        <p class="fs-4">@place.Name</p>
+                        <p>@place.Info</p>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+<script src="~/Scripts/trip/index.js"></script>
+<script>
+
+
+
+
+</script>
